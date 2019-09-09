@@ -3,18 +3,21 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+
 class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
+
     def __init__(self):
         self.vertices = {}
+
     def add_vertex(self, vertex):
-         if vertex not in self.vertices:
+        if vertex not in self.vertices:
             self.vertices[vertex] = set()
 
     def add_edge(self, v1, v2):
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
-        
+
     def bft(self, starting_vertex):
         queue = Queue()
         queue.enqueue(starting_vertex)
@@ -30,9 +33,7 @@ class Graph:
 
     def dft(self, starting_vertex):
         s = Stack()
-
         s.push(starting_vertex)
-
         found = []
 
         while s.size() > 0:
@@ -42,9 +43,8 @@ class Graph:
                 for next_vert in self.vertices[current]:
                     s.push(next_vert)
 
-    def dft_recursive(self, starting_vertex, path = []):
+    def dft_recursive(self, starting_vertex, path=[]):
         path += [starting_vertex]
-
         for vertex in self.vertices[starting_vertex]:
             if vertex not in path:
                 path = self.dft_recursive(vertex, path)
@@ -53,9 +53,7 @@ class Graph:
 
     def bfs(self, starting_vertex, destination_vertex):
         queue = Queue()
-
         queue.enqueue([starting_vertex])
-
         found = []
 
         while queue.size() > 0:
@@ -75,15 +73,15 @@ class Graph:
                     queue.enqueue(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
-        
-        s = Stack()
 
-        s.push([starting_vertex])
+        stack = Stack()
+
+        stack.push([starting_vertex])
 
         found = []
 
-        while s.size() > 0:
-            path = s.pop()
+        while stack.size() > 0:
+            path = stack.pop()
             v = path[-1]
 
             if v not in found:
@@ -93,11 +91,7 @@ class Graph:
                 for next_vert in self.vertices[v]:
                     new_path = list(path)
                     new_path.append(next_vert)
-                    s.push(new_path)
-
-
-
-
+                    stack.push(new_path)
 
 
 if __name__ == '__main__':
