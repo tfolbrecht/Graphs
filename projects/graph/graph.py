@@ -29,32 +29,72 @@ class Graph:
         print(f'BFT: {found}')
 
     def dft(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        """
-        pass
-    def dft_recursive(self, starting_vertex):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-        This should be done using recursion.
-        """
-        pass  # TODO
+        s = Stack()
+
+        s.push(starting_vertex)
+
+        found = []
+
+        while s.size() > 0:
+            current = s.pop()
+            if current not in found:
+                found.append(current)
+                for next_vert in self.vertices[current]:
+                    s.push(next_vert)
+
+    def dft_recursive(self, starting_vertex, path = []):
+        path += [starting_vertex]
+
+        for vertex in self.vertices[starting_vertex]:
+            if vertex not in path:
+                path = self.dft_recursive(vertex, path)
+
+        return path
+
     def bfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing the shortest path from
-        starting_vertex to destination_vertex in
-        breath-first order.
-        """
-        pass  # TODO
+        queue = Queue()
+
+        queue.enqueue([starting_vertex])
+
+        found = []
+
+        while queue.size() > 0:
+            path = queue.dequeue()
+            v = path[-1]
+
+            if v not in found:
+                if v == destination_vertex:
+                    return path
+
+                found.append(v)
+
+                for next_vert in self.vertices[v]:
+
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    queue.enqueue(new_path)
+
     def dfs(self, starting_vertex, destination_vertex):
-        """
-        Return a list containing a path from
-        starting_vertex to destination_vertex in
-        depth-first order.
-        """
-        pass  # TODO
+        
+        s = Stack()
+
+        s.push([starting_vertex])
+
+        found = []
+
+        while s.size() > 0:
+            path = s.pop()
+            v = path[-1]
+
+            if v not in found:
+                if v == destination_vertex:
+                    return path
+                found.append(v)
+                for next_vert in self.vertices[v]:
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    s.push(new_path)
+
 
 
 
@@ -85,7 +125,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    print("Graphs Vericies: " + str(graph.vertices))
 
     '''
     Valid DFT paths:
@@ -94,7 +134,7 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    graph.dft(1)
+    print("DFT paths:" + str(graph.dft(1)))
 
     '''
     Valid BFT paths:
@@ -111,7 +151,7 @@ if __name__ == '__main__':
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     '''
-    graph.bft(1)
+    print("BFT paths: " + str(graph.bft(1)))
 
     '''
     Valid DFT recursive paths:
@@ -120,17 +160,17 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    graph.dft_recursive(1)
+    print("DFT: " + str(graph.dft_recursive(1)))
 
     '''
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    print(graph.bfs(1, 6))
+    print("BFS: " + str(graph.bfs(1, 6)))
 
     '''
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    print(graph.dfs(1, 6))
+    print("DFS: " + str(graph.dfs(1, 6)))
