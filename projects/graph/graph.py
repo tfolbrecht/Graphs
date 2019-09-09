@@ -21,27 +21,30 @@ class Graph:
     def bft(self, starting_vertex):
         queue = Queue()
         queue.enqueue(starting_vertex)
-        found = [starting_vertex]
+        path = [starting_vertex]
 
         while queue.size() > 0:
             for vertex in self.vertices[queue.queue[0]]:
-                if vertex not in found:
+                if vertex not in path:
                     queue.enqueue(vertex)
-                    found.append(vertex)
+                    path.append(vertex)
             queue.dequeue()
-        print(f'BFT: {found}')
+
+        return path
 
     def dft(self, starting_vertex):
         s = Stack()
         s.push(starting_vertex)
-        found = []
+        path = []
 
         while s.size() > 0:
             current = s.pop()
-            if current not in found:
-                found.append(current)
+            if current not in path:
+                path.append(current)
                 for next_vert in self.vertices[current]:
                     s.push(next_vert)
+
+        return path
 
     def dft_recursive(self, starting_vertex, path=[]):
         path += [starting_vertex]
@@ -128,7 +131,7 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    print("DFT paths:" + str(graph.dft(1)))
+    print("DFT paths: " + str(graph.dft(1)))
 
     '''
     Valid BFT paths:
