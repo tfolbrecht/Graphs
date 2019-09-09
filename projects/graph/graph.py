@@ -8,27 +8,32 @@ class Graph:
     def __init__(self):
         self.vertices = {}
     def add_vertex(self, vertex):
-        """
-        Add a vertex to the graph.
-        """
-        pass  # TODO
+         if vertex not in self.vertices:
+            self.vertices[vertex] = set()
+
     def add_edge(self, v1, v2):
-        """
-        Add a directed edge to the graph.
-        """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        
     def bft(self, starting_vertex):
-        """
-        Print each vertex in breadth-first order
-        beginning from starting_vertex.
-        """
-        pass  # TODO
+        queue = Queue()
+        queue.enqueue(starting_vertex)
+        found = [starting_vertex]
+
+        while queue.size() > 0:
+            for vertex in self.vertices[queue.queue[0]]:
+                if vertex not in found:
+                    queue.enqueue(vertex)
+                    found.append(vertex)
+            queue.dequeue()
+        print(f'BFT: {found}')
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        pass
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
