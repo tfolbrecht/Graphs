@@ -24,3 +24,14 @@ class Stack():
     def size(self):
         return len(self.stack)
 
+class Graph():
+    def __init__(self):
+        self.vertices = {}
+
+    def add_vertex(self, vertex):
+        if vertex not in self.vertices:
+            self.vertices[vertex] = set()
+
+    def add_edge(self, vertex_from, vertex_to):
+        if vertex_from in self.vertices and vertex_to in self.vertices:
+            self.vertices[vertex_from].add(vertex_to)
