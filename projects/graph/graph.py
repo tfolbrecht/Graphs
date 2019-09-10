@@ -7,6 +7,7 @@ from util import Stack, Queue  # These may come in handy
 class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
 
+class Graph():
     def __init__(self):
         self.vertices = {}
 
@@ -14,9 +15,9 @@ class Graph:
         if vertex not in self.vertices:
             self.vertices[vertex] = set()
 
-    def add_edge(self, v1, v2):
-        if v1 in self.vertices and v2 in self.vertices:
-            self.vertices[v1].add(v2)
+    def add_edge(self, vertex_from, vertex_to):
+        if vertex_from in self.vertices and vertex_to in self.vertices:
+            self.vertices[vertex_from].add(vertex_to)
 
     def bft(self, starting_vertex):
         queue = Queue()
