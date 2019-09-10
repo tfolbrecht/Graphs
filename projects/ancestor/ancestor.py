@@ -11,6 +11,7 @@ def earliest_ancestor(ancestors, starting_node):
         graph.add_edge(tups[0], tups[1])
         print(graph.vertices)
     # print(graph.vertices)
+
     q = Queue()
     longest_list = 0
     furthest_ancestor = -1
