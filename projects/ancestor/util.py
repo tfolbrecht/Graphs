@@ -35,3 +35,28 @@ class Graph():
     def add_edge(self, vertex_from, vertex_to):
         if vertex_from in self.vertices and vertex_to in self.vertices:
             self.vertices[vertex_from].add(vertex_to)
+
+    def is_vertex(self, value):
+        return value in self.vertices
+
+    
+    def bfs(self, starting_vertex, destination_vertex):
+        queue = Queue()
+        queue.enqueue([starting_vertex])
+        found = []
+
+        while queue.size() > 0:
+            path = queue.dequeue()
+            v = path[-1]
+
+            if v not in found:
+                if v == destination_vertex:
+                    return path
+
+                found.append(v)
+
+                for next_vert in self.vertices[v]:
+
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    queue.enqueue(new_path)
